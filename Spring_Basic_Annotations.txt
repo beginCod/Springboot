@@ -1,0 +1,72 @@
+Basic spring annotations
+
+1. Component Scanning : Spring can automatically scan package for beans if  component scan is enabled.
+@ComponentScan is the annotation when specified with package will scan the package for beans for annotation, we can specify the basePackage namecan with basePackage or values arguments. values is alias for basePackage.
+
+E.g. @Configuration
+	 @ComponentScan(basePackage = "com.baeldung.annotations")
+	 class VehicleFActoryConfig {}
+	 
+also we can scan a particular class of any given package using basePackageclasses arugment.
+
+E.g. @Configurtion
+	 @ComponentScan(basePackageClasss = VehicleFactoryConfig.class)
+	 class VehicleFActoryConfig {}
+	 
+If no argument is specified then scanning will start from the same package where  @ComponentScan annotated class is present.
+
+We can also mark a class with it multiple time
+@ComponentScnan(basePackage = "com.baeldung.annotations")
+@ComponentScnan(basePackageClasses =VehicleFactoryConfig.class")
+
+
+@ComponentScan leverages the Java 8 repeating annotations feature, which means we can mark a class with it multiple times
+@Configuration
+@ComponentScan(basePackages = "com.baeldung.annotations")
+@ComponentScan(basePackageClasses = VehicleFactoryConfig.class)
+class VehicleFactoryConfig {}
+
+Alternatively, we can use @ComponentScans to specify multiple @ComponentScan configurations:
+
+@Configuration
+@ComponentScans({
+@ComponentScan(basePackages = "com.baeldung.annotations"),
+@ComponentScan(basePackageClasses = VehicleFactoryConfig.class)
+})
+class VehicleFactoryConfig {}
+
+2. @Component : It is a class level annotation. During the component scan, Spring Framework automatically detect classes annotated with @component.
+
+E.g. @Component
+	 class CarUtility{
+	 ...
+	 }
+	 
+3. @Repository : DAO or Repository generally represents data access layer in application, and hence annotated with @Repository
+E.g. @Repository
+	class VehicleRepository{
+	...
+	}
+	
+4. @Service : The business logic of application usually resides in service layer, so we will user @servic annotation to indicate that a class belongs to that layer.
+
+E.g. @Service
+	class VehicleService{
+	...
+	}
+5. @Controller : It is a class level annotation, which tells the Spring Framework that this class serves as a controller in Spring MVC.
+E.g. @Controller
+	public class VehicleController{
+	...
+	}
+
+6. @Configuration : Configuration classes can contain bean definition methods annotated with @Bean.
+e.g. 
+	@Configuration
+	public class VehicleConfiguration{
+		
+		@Bean
+		Engine engine(){
+			return new Engine();
+		}
+	}
