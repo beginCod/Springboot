@@ -10,16 +10,17 @@ This is git workflow
 ********************Imp push commands and their sequence*********************
 1. create file on you local machine
 2. save file to git local repo directory (as we saved now for Springboot repo)
-3. Add the file to repo using below command
+3. Go to path of git repository on local machine
+4. Add the file to repo using below command
 	git add file_name : Press enter
-4. Check the status of repo using below command.
+5. Check the status of repo using below command.
 	git status
 	It will show you the status as whether file is new or modified
-5. Commit the changes using below command.
+6. Commit the changes using below command.
 	git commit
 	it will open commit editor
 	Press i to insert commit messge.
 	Once message entered, press esc, the :wq! and press enter : it will succesfully save the commit msg and exit from commit editor
-6. Then push the file to git repo using below command
+7. Then push the file to git repo using below command
 	git push origin main
 	Note: here main is default branch name. It is user friendly and can be as per requirement.

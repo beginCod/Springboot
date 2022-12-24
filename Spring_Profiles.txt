@@ -1,0 +1,30 @@
+*******************************************************
+*													  *
+*					Spring Profiles   				  *
+*                									  *
+*******************************************************
+
+We can set the profiles for spring application as per our need, i.e. either for dev, prod or test.
+
+Profiles is core feature of framework which will allow to map our beans to different profiles i.e. dev, prod or test.
+
+There are many ways by which we can declare/set the profile for our application.
+
+1. We can declare the profile for dev env, so that it will not be available for production.
+e.g.  @Component
+	  @Profile("dev")
+	  public class DevDataSourceConfig
+	  
+Alternatively, the same above thing can be achieved using NOT operator, see example below.
+e.g.  @Component
+	  @Profile("!dev")
+	  public class DevDataSourceConfig
+	  
+2.  Declaring Profiles in XML
+e.g.  <beans profile="dev">
+		<bean id="devDatasourceConfig" class="org.baeldung.profiles.DevDatasourceConfig" />
+	  </beans>
+	  
+Next step is activating and setting up the profiles, so that respective beans are registered in the container.
+This can be done in many ways as given below.
+

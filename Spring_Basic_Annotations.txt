@@ -1,11 +1,11 @@
 Basic spring annotations
 
 1. Component Scanning : Spring can automatically scan package for beans if  component scan is enabled.
-@ComponentScan is the annotation when specified with package will scan the package for beans for annotation, we can specify the basePackage namecan with basePackage or values arguments. values is alias for basePackage.
+@ComponentScan is the annotation when specified with package will scan the package for beans for annotation, we can specify the basePackage name with basePackage or values arguments. values is alias for basePackage.
 
 E.g. @Configuration
 	 @ComponentScan(basePackage = "com.baeldung.annotations")
-	 class VehicleFActoryConfig {}
+	 class VehicleFactoryConfig {}
 	 
 also we can scan a particular class of any given package using basePackageclasses arugment.
 
@@ -48,7 +48,7 @@ E.g. @Repository
 	...
 	}
 	
-4. @Service : The business logic of application usually resides in service layer, so we will user @servic annotation to indicate that a class belongs to that layer.
+4. @Service : The business logic of application usually resides in service layer, so we will user @service annotation to indicate that a class belongs to that layer.
 
 E.g. @Service
 	class VehicleService{

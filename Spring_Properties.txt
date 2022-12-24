@@ -1,0 +1,29 @@
+*******************************************************
+*													  *
+*					Spring Properties  				  *
+*                									  *
+*******************************************************
+
+In spring we can use assign value/properties by specifying properties using @PropertySource annotation
+e.g. @Configuration
+	 @PropertySource("classpath:foo.properties")
+	public class PropertiesWithJavaConfig {
+    //...
+}
+
+We can user multiple @PropertySource annotation to specify multiple properties
+
+e.g. @PropertySource("classpath:foo.properties")
+	 @PropertySource("classpath:bar.properties")
+	 public class PropertiesWithJavaConfig {
+     //...
+	 }
+	 
+We can also specify an array of @PropertySource annotation
+e.g. @PropertySources({
+		@PropertySource("classpath:foo.properties"),
+		@PropertySource("classpath:bar.properties")
+	})
+		public class PropertiesWithJavaConfig {
+		//...
+		}
