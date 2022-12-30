@@ -1,0 +1,50 @@
+In this section we will study the different variants of BeanFactory.getBean() method.
+
+1. Spring Beans Setup
+	@Configuration
+	class AnnotationConfig {
+
+    @Bean(name = {"tiger", "kitty"})
+    @Scope(value = "prototype")
+    Tiger getTiger(String name) {
+        return new Tiger(name);
+    }
+
+    @Bean(name = "lion")
+    Lion getLion() {
+        return new Lion("Hardcoded lion name");
+    }
+
+    interface Animal {}
+}
+
+In above example Lion has default singleton scope whereas Tiger has prototype scope.
+We have also defined names for each bean, for identification purpose.
+
+2. The getBean() APIs :: BeanFactory provides 5 different signatures of getBean method.
+
+2.1 : Retrieving bean by Name.
+	Object lion = context.getBean("lion");
+	assertEquals(Lion.class, lion.getClas());
+	
+	In this of bean exists it will return, otherwise it will return NoSuchBeanDefinitionException if the bean lookup fails.
+
+2.2 : Retrieving bean by name and type :: here we need to specify both name and type of bean.
+		Lion lion = context.getBean("lion", Lion.class);
+		
+2.3 : Retrieving Bean by Type : Just specify the type as below.
+
+		Lion lion = context.getBean(Lion.class);
+		
+2.4 : Retrieving Bean by Name with Constructor Parameters
+		Tiger tiger = (Tiger) context.getBean("tiger", "Siberian")
+		
+Note : This method is different because it applies to only prototype scope, for singleton scope it will give BeanDefinitionStoreException.
+
+2.5 : Retrieving Bean by Type With Constructor Parameters
+		
+		Tiger tiger = context.getBean(Tiger.class, "Shere Khan");
+		assertEquals("Shere Khan", tiger.getName());
+		
+	This is similar to previous one i.e. 2.4, but here bean is fetched based on type and not on name. Like above, the method is applicable to beans with 
+	prototype scope.

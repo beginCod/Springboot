@@ -27,4 +27,3 @@ e.g.  <beans profile="dev">
 	  
 Next step is activating and setting up the profiles, so that respective beans are registered in the container.
 This can be done in many ways as given below.
-

@@ -1,0 +1,26 @@
+1. We can have multiple configuration files w.r.t our environment, i.e dev, stage or prod.
+2. Consider we have 3 env, then we will need 3 config files as below
+	persistence-dev.properties
+	persistence-staging.properties
+	persistence-production.properties
+3. Location for these properties files will /src/main/resources, but whereever they are, their path must be specified in classpath, when applicaion is deployed.
+4. Setting the proepertis file for project.
+	The final deployable was will contain all properties file - for persistence. Then we will set envTargetName variable to specify for which env which env file is used.
+	
+	e.g. -DenvTarget=dev : as a parameter to the JVM command line.
+
+5. For integration test, we will simply set the envTarget in pom.xml
+e.g. <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<configuration>
+			<systemPropertyVariables>
+				<envTarget>h2_test</envTarget>
+			</systemPropertyVariables>
+		</configuration>
+	</plugin>
+	
+6. Going further we can specify property file with respect to env-persistence_Provider.properties file
+e.g. persistence-dev_h2.properties :: env : dev and db : h2
+	 persistence-staging_mysql.properties: :: env : staging and db : mysql
+	 persistence-production_amazon_rds.properties :: env : production and db : amazon_rds

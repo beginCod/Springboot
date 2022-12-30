@@ -1,0 +1,184 @@
+Spring Core Annotations
+
+Dependency Injection(DI) Related Annotations
+
+1. @Autowire : this annotation mark a dependency which spring to resolve and inject.
+Constructor Injection:
+
+class Car{
+Engine engine;
+
+	@Autowire
+	public Car(Engine engine){
+	this.engine = engine;
+	}
+}
+
+Setter Injection
+class Car{
+Engine engine;
+
+	@Autowire
+	public void setEngine(Engine engine){
+		this.engine = engine;
+	)
+)
+
+Field Injection:
+class Car{
+	@Autowire
+	Engine engine;
+}
+
+2. @Bean : This marks the factory method which instantiates a Spring bean.
+	@Bean	
+	Engine engine()}
+	return new Engine();
+	}
+The above code will reutrn a bean with default name of method i.e. engine.
+
+	@Beand("engine")
+	Engine getEngine(){
+	return new Engine();
+	}
+The above code will not return bean of method name, rather it will return bean of name engine, specified as value to @Bean annotation.
+
+3. @Qualifier : We can use this annotation with @Autowire, to specify the bean id or bean name we want to use in ambiguous situation.
+e.g.
+	class Bike implements Vehicle{}
+	class Car  implements Vehicle{}
+	
+	@Qualifier in constructor injection
+	@Autowired
+	Biker(@Qualifier("bike") Vehicle vehicle){
+		this.vehicle=vehicle;
+	}
+	
+	@Qualifier in setter injection
+	@Autowire
+	void setVehicle(@Qualifier("bike") Vehicle vehicle){
+		this.vehicle = vehicle;
+	}
+	or
+	@Qualifier in setter injection
+	@Autowire
+	@Qualifier("bike")
+	void setVehicle( Vehicle vehicle){
+		this.vehicle = vehicle;
+	}
+	
+	@Qualifier in field injection
+	@Autowire
+	@Qualifier("bike")
+	Vehicle vehicle;
+	
+4. @Required : @Required on setter methods to mark dependencies that we want to populate through XML
+
+	@Required
+	void setColor(String color) {
+    this.color = color;
+	}
+	
+	<bean class="com.baeldung.annotations.Bike">
+    <property name="color" value="green" />
+	</bean>
+	
+5. @Value : We can use @Value for injecting property values into beans. Compatible with all 3 types in injections.
+
+constructor type:
+	Engine(@Value("8") int cylinderCount) {
+    this.cylinderCount = cylinderCount;
+	
+	}
+
+Setter type : 
+	@Autowired
+	void setCylinderCount(@Value("8") int cylinderCount) {
+		this.cylinderCount = cylinderCount;
+	}
+	or
+	@Value("8")
+	void setCylinderCount(int cylinderCount) {
+		this.cylinderCount = cylinderCount;
+	}
+
+Field type:
+	@Value("8")
+	int cylinderCount;
+	
+6. @DependsOn : This annotation is used to make Spring initialize other beans before the annotated one.
+
+e.g. @DependsOn("engine")
+	 Car implements Vehicle{}
+	 Here before initializing Car bean, spring will initialize engine bean.
+	 
+	 @Bean
+	 @DependsOn("fuel")
+	 Engine engine(){
+		return new Engine();
+	}
+	Here, @Bean annotation is used to initialize Engine bean, but before that another bean with name fuel will be initialized before Engine bean.
+	
+7. @Lazy : We use this when we want to initialize our bean lazily, its default value is true, setting the value to false will initialize the bean eagerly.
+
+8. @Lookup : A method annotated with @Lookup will return an instance of the method return type when we invoke it.
+
+9. @Primary : If we mark the most frequently used bean with this @Primary annotation, it will be chosen on unqualified injection points.
+e.g. 	@Component
+		@Primary
+		class Car implements Vehicle {}
+		
+		@Component
+		class Bike implements Vehicle {}
+		
+		@Component
+		class Driver {
+			@Autowired
+			Vehicle vehicle;
+		}
+		
+		@Component
+		class Biker {
+			@Autowired
+			@Qualifier("bike")
+			Vehicle vehicle;
+		}
+	In above example, Car is primary vehicle. Therefore, in the Driver Class, Spring injects a Car bean. Of course, in the Biker bean, the value of the
+	field Vehicle will be a Bike object because its qualified.
+	
+10. @Scope : It is used to define the scope of @Component class or @Bean definition.
+e.g.  	@Component
+		@Scope("prototype")
+		class Engine()
+		
+		
+	Context Configuration Related Annotations
+
+1. @Profile: if we want to use @Component class or @Bean method only when specific profile is active, then we have to use this annotation.
+e.g. @Component
+	 @Profile("sportday")
+	 class Bike implements Vehicle{}
+	 
+2. @Import : we can use specific @Configuration classes without component scanning with this annotation.
+e.g. @Configuration
+	 @Import(VehiclePartSupplier.class)
+	 class VehicleConfigFactory{}
+	 
+3.  @ImportResource : We can import XML configuration with this annotation.	
+e.g. @Configuration
+	 @ImportResource("classpath:/annotations.xml")
+	 class VehicleFactoryConfig {}
+
+
+4. 	@PropertySource : With this we can define property files for application settings
+e.g. @Configuration
+	 @PropertySource("classpath:/annotations.properties")
+	 class VehicleFactoryConfig {}
+
+5.	@PropertySources : to specify multiple @PropertySource configurations.
+e.g @Configuration
+	@PropertySources({ 
+		@PropertySource("classpath:/annotations.properties"),
+		@PropertySource("classpath:/vehicle-factory.properties")
+	})
+	class VehicleFactoryConfig {}

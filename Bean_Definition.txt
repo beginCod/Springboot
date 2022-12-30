@@ -1,0 +1,75 @@
+Q 1 : What is Spring Bean or Bean?
+Ans: In spring, objects that form the backboone of any application and managed by Spring IoC, these are called beans. A bean is an object instantiated,
+assembled, and otherwise managed by a Spring IoC container.
+
+Q 2	: What is Inversion of Control?
+And : It is a process in which an object defines its dependencies without creating them. It instructs IoC container of constructing such dependencies.
+
+3. Assume below class declaration
+
+	public class Company {
+    private Address address;
+
+    public Company(Address address) {
+        this.address = address;
+    }
+
+    // getter, setter and other properties
+}
+
+The above class has dependency on Address and Address class is as below.
+
+	public class Address {
+    private String street;
+    private int number;
+
+    public Address(String street, int number) {
+        this.street = street;
+        this.number = number;
+    }
+
+    // getters and setters
+}
+
+Traditionally, we can create objects of this classes as below.
+
+Address  address = new Address("abc", 9);
+Company company = new Company(address);
+
+Instead of creating objects in such way, we can delegate the responsibility of object creation/object dependencies to IoC container. All we need to do is to 
+provide the container with appropriate configuration metadata.
+
+3.1 Bean Configuration
+Let's decorate the company class with @Component annotation.
+
+	@Component
+	public class Company{
+		
+	}
+
+Configuration class supplying metadata to IoC.
+
+	@Configuration
+	@ComponentScan(basePackageClasses = Company.class)
+	public class Config{
+		@Bean
+			public Address getAddress(){
+				return new Address("High Street", 1000);
+			}
+	}
+When a Spring IoC container constructs objects of those types, all the objects are called Spring beans, as they are managed by the IoC container.
+
+3.2 IoC in Action
+
+Since we defined bean in configuration class, we need an instance of AnnotationConfigApplicationContext class to build up a container.
+
+ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+
+A quick test verifies the existence and the property values of our beans:
+
+	Company company = context.getBean("company", Company.class);
+	assertEquals("High Street", company.getAddress().getStreet());
+	assertEquals(1000, company.getAddress().getNumber());
+
+
+	

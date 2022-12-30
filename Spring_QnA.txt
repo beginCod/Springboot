@@ -1,0 +1,39 @@
+Q 1: What is Spring Framework?
+A 1: Spring is frameword used for developing enterprise Java application. It is open source framework for building enterprise JAVA application. With Spring we can develop large scale Java Applicaiton very easily. It is also based on good design patterns such as Dependency Injection, Aspect Oriented Programming(AOP) for developing extensible feature rich application.
+
+Q 2: What are the modules in core container of Spring framework?
+A 2: Modules in core container as below.
+1. Core module
+2. Bean module
+3. Context module
+4. Spring expression Language module
+
+Q 3: What is the benefit of Spring framework?
+A 3: Spring framework has following below benefits.
+1. Lightweight : Basic Spring framework is very small in size. It is easy to use and doesn't add overhead to the software.
+2. Container : Spring framework provides container which is responsible for creating and managing the life cycle of application objects like POJO. It also stores configuration file for application objects to be created.
+3. Dependency Injection : Spring provides loose coupling in application by dependency injection. It uses Inversion of Control technique by which object specify their dependencies on spring container rather than creating new objects themselves.
+4. Aspect Oriented Programming(AOP): Spring framework provides and promotes support for Aspect Oriented programming. With this it separates applicaiton business logic from system services that are common across all business logic. e.g. Logging.
+5. Transaction Management : Spring provides good support for txn mgmnt, so a developer doesn't have to implement is from scratch.
+Spring framework txn mgmnt is so powerful that we can scale one local txn to global txns in a cluster.
+6. MVC Framework: For Web applications, Spring provides MVC
+framework. This framework is based on MVC design pattern and
+has better features compared to other web frameworks.
+7. Exception Handling: Spring also gives support for a common API to
+handle exceptions in various technologies like- Hibernate, JDBC
+etc.
+
+Q 4: What are the modules in Data Access/Integration layer of Spring framework?
+A 4: Data Access/Integration Layer has below modules:
+1. JDBC Module : An abstraction layer to remove tedious JDBC Coding.
+2. ORM Moudle : An integration layer for Object Relational Mapping.
+3. OXM Module : An abstraction layer for Object XML mapping.
+4. JMS Module : Module for producing and consuming messages.
+5. Transaction Module : Transaction module for POJO classes.
+
+Q 5: What are the modules in Web layer of Spring framework?
+A 5: Web layer of Spring framework has below modules.
+1. Web module : for building web MVC applications. Provides basic web oriented features.
+2. Servlet module : Provides support for servlet listeners.
+3. Web socket module : Support for web socket style messaging.
+4. Portlet Module : MVC implementation of portlet environment.

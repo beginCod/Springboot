@@ -11,7 +11,7 @@ e.g. @Configuration
     //...
 }
 
-We can user multiple @PropertySource annotation to specify multiple properties
+We can use multiple @PropertySource annotation to specify multiple properties
 
 e.g. @PropertySource("classpath:foo.properties")
 	 @PropertySource("classpath:bar.properties")

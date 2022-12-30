@@ -1,0 +1,123 @@
+*******************************************************
+*													  *
+*			Spring @Qualifier Annotation  			  *
+*                									  *
+*******************************************************
+
+
+1. There may be possibility that there are two similar beans available for injection, and when dependency injection is being invoked, spring container don't know 
+exactly which bean to inject. 
+
+For example:
+@Component("fooFormatter")
+public class FooFormatter implements Formatter {
+ 
+    public String format() {
+        return "foo";
+    }
+}
+
+@Component("barFormatter")
+public class BarFormatter implements Formatter {
+ 
+    public String format() {
+        return "bar";
+    }
+}
+
+
+*******************Service Class******************
+@Component
+public class FooService {
+     
+    @Autowired
+    private Formatter formatter;
+}
+
+In above example FooService is trying to inject dependency of Formatter, but above there are 2 dependencies specified FooFormatter and BarFormatter. Spring container
+don't know which dependency to inject and will throw "NoUniqueBeanDefinitionException". To solve this ambiguity @Qualifier annotation is used.
+
+2. @Qualifier annotation: to resolve the ambiguity between two similar beans for dependency injection.
+
+The above FooService can be rewritten as
+@Component
+public class FooService {
+     
+    @Autowired
+	@Qualifier("fooFormatter")
+    private Formatter formatter;
+}
+
+Here, spring container will inject fooFormatter bean.
+
+Note : We need to take into consideration that the qualifier name to be used is the one declared in the @Component annotation.
+
+We can use @Qualifier annotation on the Formatter implementing classes, instead of specifying the name in @Component annotations to obtain same effect.
+
+e.g.
+@Component
+@Qualifier("fooFormatter")
+public class FooFormatter implements Formatter {
+    //...
+}
+
+@Component
+@Qualifier("barFormatter")
+public class BarFormatter implements Formatter {
+    //...
+}
+
+3. @Qualifier vs @Primary Annotations
+@Primary annotatin defines the preference when multiple beans of same type are present. The bean associated with @Primary annotation if present then it will 
+be injected, unless otherwise indicated.
+
+Lets see an example:
+@Configuration
+public class Config {
+ 
+    @Bean
+    public Employee johnEmployee() {
+        return new Employee("John");
+    }
+ 
+    @Bean
+    @Primary
+    public Employee tonyEmployee() {
+        return new Employee("Tony");
+    }
+}
+Here the bean spring will inject is the one returned by tonyEmployee() method. As it contains @Primary annotation. @Primary annotation is default annotation.
+
+If we another bean to inject at some given instance of time, then we should annotate it with @Qualifier annotation.
+
+If both @Qualifier and @Primary annotation are present, then @Qualifier will get precedence, as @Primary is default one and @Qualifier is specific one.
+
+Lets look one example
+	@Component
+	@Primary
+	public class FooFormatter implements Formatter {
+    //...
+	}
+
+	@Component
+	public class BarFormatter implements Formatter {
+    //...
+	}
+	
+In this case, the @Primary annotation is placed in one of the implementing classes, and will disambiguate the scenario.
+
+4. @Qualifier vs Autowiring by Name
+
+Another way to decide between multiple beans when autowiring, is by using the name of the field to inject. This is the default in case there 
+are no other hints for Spring.
+
+Lets see some code by example
+	public class FooService {
+     
+    @Autowired
+    private Formatter fooFormatter;
+}
+
+In this case, Spring will determine that the bean to inject is the FooFormatter one, since the field name is matched to the value that we used in the 
+@Component annotation for that bean.
+

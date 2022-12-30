@@ -1,0 +1,14 @@
+@Component : This annotation can be used to mark beans as spring's managed component.
+e.g. @Component
+	 public @interface Service{
+	 }
+	 
+	 @Component
+	 public @interface Repository{
+	 }
+
+Service and Repository are special cases of @Component, they are technically same but used for different purpose.
+
+@Service : We mark beans with @Service annotation to indicate that they contain business logic.
+
+@Repository : The job of this annotation is to catch persistence-specific exceptions and re-throw them as one of spring's unified unchecked exceptions.

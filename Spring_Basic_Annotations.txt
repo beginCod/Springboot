@@ -16,8 +16,8 @@ E.g. @Configurtion
 If no argument is specified then scanning will start from the same package where  @ComponentScan annotated class is present.
 
 We can also mark a class with it multiple time
-@ComponentScnan(basePackage = "com.baeldung.annotations")
-@ComponentScnan(basePackageClasses =VehicleFactoryConfig.class")
+@ComponentScan(basePackage = "com.baeldung.annotations")
+@ComponentScan(basePackageClasses =VehicleFactoryConfig.class")
 
 
 @ComponentScan leverages the Java 8 repeating annotations feature, which means we can mark a class with it multiple times
